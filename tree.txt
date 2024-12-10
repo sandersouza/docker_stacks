@@ -1,9 +1,0 @@
-.
-├── database
-│   ├── mongodb
-│   ├── mysql
-│   └── redisinsight
-└── stresstest
-    └── k6_grafana
-
-7 directories
