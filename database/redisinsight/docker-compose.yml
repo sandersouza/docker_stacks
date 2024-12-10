@@ -1,0 +1,20 @@
+services:
+  cache:
+    image: redis:latest
+    restart: always
+    privileged: true
+    ports:
+      - '6385:6385'
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+      - cache:/data
+  redisinsight:
+    image: redis/redisinsight:latest
+    container_name: redisinsight
+    restart: always
+    ports:
+      - '5540:5540'
+volumes:
+  cache:
+    driver: local

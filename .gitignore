@@ -1,0 +1,52 @@
+# Ignorar arquivos comuns do macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icone de arquivos na pasta do macOS
+Icon?
+
+# Arquivos de cache do macOS
+._*
+
+# Arquivos de cache do Finder
+.Spotlight-V100
+.Trashes
+.VolumeIcon.icns
+.fseventsd
+
+# Ignorar ambientes virtuais Python
+venv/
+env/
+
+# Ignorar pastas específicas
+database/redisinsight/data/*
+database/mongodb/mongo/config/*
+database/mongodb/mongo/data/*
+database/mysql/db/data/*
+
+# Ignorar arquivos de log
+*.log
+
+# Ignorar arquivos de backup
+*.bak
+*.swp
+*.tmp
+
+# Ignorar arquivos gerados pelo editor
+*.idea/
+*.vscode/
+*.sublime-*
+
+# Ignorar binários ou artefatos compilados
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Ignorar arquivos temporários ou de build
+*.tmp
+*.cache
+*.coverage
+dist/
+build/
