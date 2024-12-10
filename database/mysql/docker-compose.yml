@@ -12,6 +12,13 @@ services:
     volumes:
       - ./db/data:/var/lib/mysql
       - ./db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
+    command: [
+      "--innodb-buffer-pool-size=1G",
+      "--bulk_insert_buffer_size=256M",
+      "--innodb-flush-log-at-trx-commit=2",
+      "--sync_binlog=0"
+    ]
 
   adminer:
     image: adminer:latest
