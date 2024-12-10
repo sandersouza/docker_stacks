@@ -1,3 +1,3 @@
+<img src="banner.png" alt="Descrição da Imagem" style="width:100%;">
 
-![Descrição da Imagem](banner.png)
 ## DATABASE STACKS
