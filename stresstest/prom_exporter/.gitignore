@@ -1,0 +1,30 @@
+# MacOS Files
+.DS_Store
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Containers and dependencies
+*.log
+*.db
+*.sqlite3
+db/data/
+
+# Sensible data
+config.yml
+
+#Data Directories
+chaos_experiments
+trivy_reports
+chaoslib.egg-info
+build

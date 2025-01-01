@@ -11,6 +11,7 @@ services:
       - '--storage.tsdb.path=/prometheus'
       - '--web.enable-lifecycle'
       - '--enable-feature=remote-write-receiver'
+      - '--web.enable-remote-write-receiver'
 
   grafana:
     image: grafana/grafana:latest
@@ -30,14 +31,14 @@ services:
       - ./grafana/provisioning:/etc/grafana/provisioning
       - ./grafana/grafana.ini:/etc/grafana/grafana.ini
 
-  k6:
-    image: grafana/k6:master
-    container_name: k6
-    environment:
-      - K6_PROMETHEUS_RW_SERVER_URL=http://prometheus:9090/api/v1/write
-    depends_on:
-      - prometheus
-    volumes:
-      - ./scripts:/scripts
-    entrypoint: ["k6"]
-    command: ["run", "/scripts/example.js", "--out", "experimental-prometheus-rw=http://prometheus:9090/api/v1/write"]
+  # k6:
+  #   image: grafana/k6:master
+  #   container_name: k6
+  #   environment:
+  #     - K6_PROMETHEUS_RW_SERVER_URL=http://prometheus:9090/api/v1/write
+  #   depends_on:
+  #     - prometheus
+  #   volumes:
+  #     - ./scripts:/scripts
+  #   entrypoint: ["k6"]
+  #   command: ["run", "/scripts/example.js", "--out", "experimental-prometheus-rw=http://prometheus:9090/api/v1/write"]
