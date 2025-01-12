@@ -4,7 +4,6 @@ import sys
 import requests
 import argparse
 
-# Configuração do InfluxDB
 INFLUXDB_URL = "http://localhost:8086/write"
 INFLUXDB_DB = "metrics"
 INFLUXDB_USER = "admin"
