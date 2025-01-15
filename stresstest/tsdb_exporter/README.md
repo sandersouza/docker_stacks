@@ -1,4 +1,4 @@
-![AICHAOS](banner.png)
+![AICHAOS](images/banner.png)
 # TSDB Exporter
 Grafana K6, JMeter, LoadRunner, Locust, and others... at this moment doesn't support HTTP3/QUIC. This is a problem for me actualitty, because all my new applications take improvements on simutaneous multiples connections speed, security, keepalive connections, handshake in TCP, data throughtput in UDP with fallback solution in case of losse packets. Taking best of 2 worlds, completely tranparent for user... Old fashionist TCP and the new all Mighty Powerfull Google Creation QUIC can ! ( See RFC 9000, 9001 and 9369 ).
 
@@ -18,7 +18,7 @@ The **QUIC** (Quick UDP Internet Connections) protocol interacts with the follow
   - Stream and connection management within a single UDP connection.
   - Protocol design optimized for reducing latency in web applications, such as HTTP/3.
 
-### **3. Layer 3: Network (Indirectly)**
+### **3. Layer 3: Network (Indirectly)*
 - While QUIC does not directly operate at the network layer, it interacts with it through its use of **UDP**. This means it relies on Layer 3 functionalities, such as:
   - IP address management.
   - Packet routing between hosts.
