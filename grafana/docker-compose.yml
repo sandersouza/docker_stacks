@@ -30,8 +30,7 @@ services:
     command: -config.file=/etc/promtail/config.yml
     volumes:
       - ./promtail/promtail-config.yml:/etc/promtail/config.yml:ro
-      - /var/lib/docker/containers:/var/lib/docker/containers:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/lib/containers/storage/overlay-containers:/var/lib/containers/storage/overlay-containers:ro
     depends_on:
       - loki
 
