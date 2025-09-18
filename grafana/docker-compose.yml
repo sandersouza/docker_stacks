@@ -40,9 +40,9 @@ services:
       context: ./fake-metrics-generator
     container_name: fake-metrics-generator
     ports:
-      - "5000:5000"
+      - "5001:5001"
     healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:5000/metrics"]
+      test: ["CMD", "wget", "-qO-", "http://localhost:5001/metrics"]
       interval: 30s
       timeout: 5s
       retries: 3

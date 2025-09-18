@@ -11,4 +11,4 @@ scrape_configs:
     metrics_path: /metrics
     static_configs:
       - targets:
-          - fake-metrics-generator:5000
+          - fake-metrics-generator:5001
