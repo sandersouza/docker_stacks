@@ -1,0 +1,18 @@
+apiVersion: 1
+
+datasources:
+  - name: Prometheus
+    type: prometheus
+    uid: PROMETHEUS_DS
+    access: proxy
+    url: http://prometheus:9090
+    isDefault: true
+    jsonData:
+      timeInterval: 15s
+  - name: Loki
+    type: loki
+    uid: LOKI_DS
+    access: proxy
+    url: http://loki:3100
+    jsonData:
+      maxLines: 1000
