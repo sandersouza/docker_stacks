@@ -14,25 +14,6 @@ services:
     ports:
       - "9090:9090"
 
-  loki:
-    image: grafana/loki:2.9.4
-    container_name: loki
-    command: -config.file=/etc/loki/config.yaml
-    volumes:
-      - ./loki/config.yaml:/etc/loki/config.yaml:ro
-      - loki_data:/loki
-    ports:
-      - "3100:3100"
-
-  promtail:
-    image: grafana/promtail:2.9.4
-    container_name: promtail
-    command: -config.file=/etc/promtail/config.yml
-    volumes:
-      - ./promtail/promtail-config.yml:/etc/promtail/config.yml:ro
-      - /var/lib/containers/storage/overlay-containers:/var/lib/containers/storage/overlay-containers:ro
-    depends_on:
-      - loki
 
   fake-metrics-generator:
     build:
@@ -59,11 +40,9 @@ services:
       - grafana_data:/var/lib/grafana
     depends_on:
       - prometheus
-      - loki
     ports:
       - "3000:3000"
 
 volumes:
   grafana_data:
   prometheus_data:
-  loki_data:

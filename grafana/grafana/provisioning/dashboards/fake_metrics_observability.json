@@ -135,41 +135,6 @@
       ],
       "title": "Séries temporais geradas",
       "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "LOKI_DS"
-      },
-      "gridPos": {
-        "h": 15,
-        "w": 18,
-        "x": 0,
-        "y": 9
-      },
-      "id": 3,
-      "options": {
-        "dedupStrategy": "none",
-        "enableLogDetails": true,
-        "prettifyLogMessage": true,
-        "showCommonLabels": false,
-        "showLabels": true,
-        "sortOrder": "Descending"
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "LOKI_DS"
-          },
-          "editorMode": "code",
-          "expr": "{container=\"fake-metrics-generator\"}",
-          "queryType": "range",
-          "refId": "A"
-        }
-      ],
-      "title": "Logs do Fake Metrics Generator",
-      "type": "logs"
     }
   ],
   "refresh": "30s",

@@ -14,6 +14,6 @@ FROM node:20-alpine
 WORKDIR /app
 COPY --from=build /src/dist .
 
-EXPOSE 5000
+EXPOSE 5001
 
 CMD ["node", "main.node.js"]
