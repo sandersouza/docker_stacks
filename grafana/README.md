@@ -9,7 +9,7 @@ comportamento de workloads e preparar integrações com pipelines de IA.
 |---------|-------|--------|
 | Grafana | 3000  | Visualização central com dashboards provisionados automaticamente |
 | Prometheus | 9090 | Coleta e armazena métricas do Fake Metrics Generator |
-| Fake Metrics Generator | 5000 | Gera métricas fake expostas em `/metrics` e escreve logs para observabilidade |
+| Fake Metrics Generator | 5001 | Gera métricas fake expostas em `/metrics` e escreve logs para observabilidade |
 
 ## Pré-requisitos
 - Docker 20+
@@ -50,12 +50,12 @@ grafana/observability
 ## Acessos rápidos
 - Grafana: http://localhost:3000 (login padrão `admin`/`admin` caso não altere via ambiente)
 - Prometheus: http://localhost:9090
-- Fake Metrics Generator: http://localhost:5000/metrics
+- Fake Metrics Generator: http://localhost:5001/metrics
 
 ## O que já vem configurado
 - **Datasources do Grafana** → Prometheus cadastrado automaticamente (uid `PROMETHEUS_DS`).
 - **Dashboard "Fake Metrics Observability"** → Painel com visão rápida do volume de métricas fake e séries geradas.
-- **Prometheus** → Scrape de `prometheus:9090` e `fake-metrics-generator:5000/metrics` a cada 15s.
+- **Prometheus** → Scrape de `prometheus:9090` e `fake-metrics-generator:5001/metrics` a cada 15s.
 
 ## Próximos passos sugeridos
 - Ajustar o arquivo `src/config/config.json` (dentro do container do Fake Metrics Generator) para alterar quantidade de métricas/labels.
