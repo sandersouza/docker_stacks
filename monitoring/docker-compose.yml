@@ -1,6 +1,29 @@
 version: "3.8"
 
 services:
+  k8s-fakemetrics:
+    build:
+      context: ./k8s-fakeMetrics
+      dockerfile: Dockerfile
+    container_name: k8s-fakemetrics
+    environment:
+      - CLUSTER_COUNT=${CLUSTER_COUNT:-2}
+      - NODES_PER_CLUSTER=${NODES_PER_CLUSTER:-3}
+      - PODS_PER_NODE=${PODS_PER_NODE:-10}
+      - UPDATE_INTERVAL_SECONDS=${UPDATE_INTERVAL_SECONDS:-5}
+      - METRICS_PORT=${METRICS_PORT:-5500}
+      - METRICS_HOST=${METRICS_HOST:-0.0.0.0}
+      - NAMESPACES_PER_CLUSTER=${NAMESPACES_PER_CLUSTER:-5}
+      - CONTAINERS_PER_POD_MIN=${CONTAINERS_PER_POD_MIN:-1}
+      - CONTAINERS_PER_POD_MAX=${CONTAINERS_PER_POD_MAX:-3}
+      - DEPLOYMENTS_PER_NAMESPACE=${DEPLOYMENTS_PER_NAMESPACE:-2}
+      - ENABLE_INGRESS_CONTROLLERS=${ENABLE_INGRESS_CONTROLLERS:-true}
+      - ENABLE_TRAEFIK_METRICS=${ENABLE_TRAEFIK_METRICS:-false}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    
+    ports:
+      - "${METRICS_PORT:-5500}:${METRICS_PORT:-5500}"
+    
   prometheus:
     image: prom/prometheus:v2.51.1
     container_name: prometheus

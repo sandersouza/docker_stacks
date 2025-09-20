@@ -7,8 +7,8 @@ scrape_configs:
       - targets:
           - prometheus:9090
 
-  - job_name: fake-metrics-generator
+  - job_name: k8s-fakeMetrics
     metrics_path: /metrics
     static_configs:
       - targets:
-          - host.containers.internal:5500
+          - k8s-fakeMetrics:5500
