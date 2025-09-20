@@ -1,32 +1,45 @@
 ![Descrição da Imagem](banner.png)
 # Performance & Stress Testing Stacks 🚀
 
-Este repositório é o point central para quem quer explorar, comparar e testar performance de diferentes databases e ferramentas
-de stress testing. Tudo isso organizado em stacks simples e prontas para uso. Quer brincar com **MySQL**, **MongoDB**, ou até me
-smo explorar o **RedisInsight**? Tá aqui! Curte um stress test com **k6 + Grafana**? Tá aqui também! E o melhor: mais stacks est
-ão a caminho, então fique ligado.
+Repositório para montar laboratórios locais de bancos de dados, observabilidade e testes de carga. Cada stack fica isolada em
+um diretório com `docker-compose.yml`, scripts auxiliares e um `README.md` próprio explicando como executar workloads e limpar
+os ambientes.
 
-Dentro de cada stack há um arquivo **README.md**, contendo as instruções de uso. Existem alguns scripts para gerar carga de dado
-s, e medir o tempo dessas cargas. A stack k6_grafana está sendo preparada para medir os detalhes de cada um desses bancos; por
-enquanto ela está desenhada para medir performance de sites, webservices, APIs e outros.
+## Pré-requisitos básicos
+- Docker 20+
+- Docker Compose v2
+- Python 3.10+ (para scripts de carga/debug)
+- Acesso a internet na primeira execução quando for necessário baixar imagens ou clonar dependências externas
 
-Agora o repositório também conta com uma stack de observabilidade completa com Grafana, Prometheus, Loki e o **Fake Metrics Generator**,
-perfeita para simular um parque de servidores e preparar integrações com soluções de IA.
-
-### Estrutura atual do repositório 📂
+## Organização
 ```plaintext
 .
 ├── database
 │   ├── mongodb
 │   ├── mysql
 │   └── redisinsight
-├── grafana
-│   └── observability
+├── monitoring
+│   ├── docker-compose.yml
+│   └── grafana/prometheus/k8s-fakeMetrics
 └── stresstest
     ├── k6_grafana
     └── tsdb_exporter
 ```
 
+- `database/` agrupa stacks para carregar dados sintéticos em MongoDB, MySQL e Redis + RedisInsight.
+- `monitoring/` contém a stack de observabilidade (Grafana + Prometheus + Fake Metrics Generator) com dashboards provisionados.
+- `stresstest/` oferece ferramentas de teste de carga (k6 + Grafana/InfluxDB + Prometheus) e utilitários para enviar métricas
+  de ferramentas externas para um TSDB.
+
+## Como usar
+1. Escolha a stack de interesse na estrutura acima.
+2. Leia o `README.md` do diretório da stack para conhecer variáveis de ambiente, portas expostas e scripts disponíveis.
+3. Execute `docker compose up -d` (ou `docker-compose`, conforme sua versão) a partir da pasta da stack.
+4. Use os scripts fornecidos para gerar dados, rodar testes ou limpar tabelas.
+5. Finalize com `docker compose down` (adicione `-v` se quiser descartar volumes).
+
+Cada README específico também descreve credenciais padrão e como personalizar o ambiente antes de subir os containers.
+
 ---
 
-🎉 Aproveite, divirta-se e compartilhe suas ideias!
+🎉 Explore, adapte às suas necessidades e contribua com novas stacks quando quiser!

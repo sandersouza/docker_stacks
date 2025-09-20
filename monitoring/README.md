@@ -1,74 +1,50 @@
 # Observability Stack - Grafana + Prometheus + Fake Metrics Generator
 
-Stack compacta para estudos e experimentos envolvendo métricas. Ela entrega Grafana provisionado com datasources e um dashboard
-base, com o Prometheus coletando métricas do Fake Metrics Generator. Ideal para simular um parque de servidores fake, avaliar
-comportamento de workloads e preparar integrações com pipelines de IA.
+Stack compacta para estudos de observabilidade. Ela sobe o **Fake Metrics Generator** (simulando um cluster Kubernetes),
+coleta tudo com **Prometheus** e exibe em dashboards provisionados no **Grafana**.
 
-## Serviços incluídos
-| Serviço | Porta | Função |
-|---------|-------|--------|
-| Grafana | 3000  | Visualização central com dashboards provisionados automaticamente |
-| Prometheus | 9090 | Coleta e armazena métricas do Fake Metrics Generator |
-| Fake Metrics Generator | 5001 | Gera métricas fake expostas em `/metrics` e escreve logs para observabilidade |
-
-## Pré-requisitos
-- Docker 20+
-- Docker Compose v2
-- Host Linux (recomendado) ou ambiente compatível com Docker
+## Serviços
+| Serviço | Porta local | Descrição |
+|---------|-------------|-----------|
+| Grafana | 3000        | Painel com datasources/dashboards provisionados automaticamente |
+| Prometheus | 9090     | Coletor TSDB com scrape dos alvos internos |
+| Fake Metrics Generator | 5500 (padrão) | Gera métricas e logs sintéticos imitando vários clusters |
 
 ## Estrutura de diretórios
 ```plaintext
-grafana/observability
+monitoring
 ├── docker-compose.yml
 ├── grafana
 │   └── provisioning
-│       ├── dashboards
-│       │   └── fake_metrics_observability.json
-│       └── datasources
-│           └── datasources.yml
+│       ├── datasources/datasources.yml
+│       └── dashboards/dashboard.json
 ├── prometheus
 │   └── prometheus.yml
-└── fake-metrics-generator
-    └── Dockerfile
+└── k8s-fakeMetrics
+    └── Dockerfile  (clona https://github.com/sandersouza/k8s-fakeMetrics)
 ```
 
-## Como subir a stack
-1. Na raiz do repositório execute:
-   ```bash
-   cd grafana/observability
-   docker compose build
-   docker compose up -d
-   ```
-   > A primeira execução baixa o código do Fake Metrics Generator diretamente do GitHub para montar a imagem local.
+## Subindo a stack
+```bash
+# a partir de monitoring/
+docker compose up -d
+```
+A primeira execução baixa as imagens do Docker Hub e clona o repositório `k8s-fakeMetrics` durante o build.
 
-2. (Opcional) Ajuste as credenciais do Grafana exportando variáveis antes do `docker compose up`:
-   ```bash
-   export GRAFANA_ADMIN_USER=admin
-   export GRAFANA_ADMIN_PASSWORD=senhaSuperSecreta
-   ```
+### Variáveis úteis
+- `GRAFANA_ADMIN_USER` / `GRAFANA_ADMIN_PASSWORD`: credenciais do Grafana (padrão `admin`/`admin`).
+- `METRICS_PORT`: porta exposta pelo Fake Metrics Generator (padrão 5500). Altere no `.env` ou exporte no shell antes do `docker compose up`.
+- Demais variáveis do Fake Metrics Generator permitem controlar número de clusters, nodes, pods, intervalo de atualização etc. Consulte o `docker-compose.yml` para os defaults.
 
 ## Acessos rápidos
-- Grafana: http://localhost:3000 (login padrão `admin`/`admin` caso não altere via ambiente)
+- Grafana: http://localhost:3000 (credenciais acima)
 - Prometheus: http://localhost:9090
-- Fake Metrics Generator: http://localhost:5001/metrics
+- Métricas sintéticas: http://localhost:5500/metrics
 
-## O que já vem configurado
-- **Datasources do Grafana** → Prometheus cadastrado automaticamente (uid `PROMETHEUS_DS`).
-- **Dashboard "Fake Metrics Observability"** → Painel com visão rápida do volume de métricas fake e séries geradas.
-- **Prometheus** → Scrape de `prometheus:9090` e `fake-metrics-generator:5001/metrics` a cada 15s.
-
-## Próximos passos sugeridos
-- Ajustar o arquivo `src/config/config.json` (dentro do container do Fake Metrics Generator) para alterar quantidade de métricas/labels.
-- Criar dashboards adicionais no Grafana, duplicando o JSON em `grafana/provisioning/dashboards`.
-- Integrar a stack a um servidor MCP ou agentes de IA consumindo as APIs do Grafana/Prometheus.
-
-## Finalizando
-Para desligar tudo e remover os containers:
+## Encerrando e limpeza
 ```bash
-docker compose down
+docker compose down        # Para containers
+# docker compose down -v   # (opcional) remove volumes de dados do Grafana/Prometheus
 ```
 
-Se desejar limpar os volumes persistentes (dados do Grafana e Prometheus):
-```bash
-docker compose down -v
-```
+Ajuste dashboards duplicando o JSON em `grafana/provisioning/dashboards/` ou conecte outros exporters apontando para o Prometheus.
