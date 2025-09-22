@@ -10,4 +10,5 @@ providers:
     options:
       path: /etc/grafana/provisioning/dashboards
       files:
-        - /etc/grafana/provisioning/dashboards/dashboard.json
+        - /etc/grafana/provisioning/dashboards/clusterAnalisys.json
+        # - /etc/grafana/provisioning/dashboards/errorAnalisys.json
