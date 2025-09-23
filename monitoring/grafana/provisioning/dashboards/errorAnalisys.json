@@ -1,47 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_PROMETHEUS",
-      "label": "Prometheus",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "prometheus",
-      "pluginName": "Prometheus"
-    }
-  ],
-  "__elements": {},
-  "__requires": [
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "10.4.3"
-    },
-    {
-      "type": "datasource",
-      "id": "prometheus",
-      "name": "Prometheus",
-      "version": "1.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "stat",
-      "name": "Stat",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "table",
-      "name": "Table",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "timeseries",
-      "name": "Time series",
-      "version": ""
-    }
-  ],
   "annotations": {
     "list": [
       {
@@ -61,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": null,
+  "id": 4,
   "links": [],
   "panels": [
     {
@@ -78,7 +35,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PROMETHEUS_DS"
       },
       "fieldConfig": {
         "defaults": {
@@ -130,12 +87,12 @@
       "pluginVersion": "10.4.3",
       "targets": [
         {
-          "expr": "sum(rate(apiserver_request_total{cluster=~\"$cluster\", code=~\"5..\"}[5m]))",
-          "refId": "A",
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          }
+            "uid": "PROMETHEUS_DS"
+          },
+          "expr": "sum(rate(apiserver_request_total{cluster=~\"$cluster\", code=~\"5..\"}[5m]))",
+          "refId": "A"
         }
       ],
       "title": "Erros 5xx (API Server) - RPS",
@@ -144,7 +101,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PROMETHEUS_DS"
       },
       "fieldConfig": {
         "defaults": {
@@ -192,12 +149,12 @@
       "pluginVersion": "10.4.3",
       "targets": [
         {
-          "expr": "sum(rate(apiserver_request_total{cluster=~\"$cluster\", code=~\"4..\"}[5m]))",
-          "refId": "A",
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          }
+            "uid": "PROMETHEUS_DS"
+          },
+          "expr": "sum(rate(apiserver_request_total{cluster=~\"$cluster\", code=~\"4..\"}[5m]))",
+          "refId": "A"
         }
       ],
       "title": "Erros 4xx (API Server) - RPS",
@@ -206,7 +163,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PROMETHEUS_DS"
       },
       "fieldConfig": {
         "defaults": {
@@ -253,12 +210,12 @@
       "pluginVersion": "10.4.3",
       "targets": [
         {
-          "expr": "sum(kube_pod_container_status_waiting_reason{cluster=~\"$cluster\", namespace=~\"$namespace\", pod=~\"$pod\", reason=~\"CrashLoopBackOff|ImagePullBackOff|ErrImagePull|CreateContainerConfigError\"})",
-          "refId": "A",
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          }
+            "uid": "PROMETHEUS_DS"
+          },
+          "expr": "sum(kube_pod_container_status_waiting_reason{cluster=~\"$cluster\", namespace=~\"$namespace\", pod=~\"$pod\", reason=~\"CrashLoopBackOff|ImagePullBackOff|ErrImagePull|CreateContainerConfigError\"})",
+          "refId": "A"
         }
       ],
       "title": "CrashLoops (containers em waiting)",
@@ -278,7 +235,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PROMETHEUS_DS"
       },
       "fieldConfig": {
         "defaults": {
@@ -328,12 +285,12 @@
       "pluginVersion": "10.4.3",
       "targets": [
         {
-          "expr": "topk(5, sum(rate(apiserver_request_total{cluster=~\"$cluster\", code=~\"5..\"}[5m])) by (namespace))",
-          "refId": "A",
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          }
+            "uid": "PROMETHEUS_DS"
+          },
+          "expr": "topk(5, sum(rate(apiserver_request_total{cluster=~\"$cluster\", code=~\"5..\"}[5m])) by (namespace))",
+          "refId": "A"
         }
       ],
       "title": "Top Namespaces por Erros 5xx (APIServer)",
@@ -342,7 +299,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PROMETHEUS_DS"
       },
       "fieldConfig": {
         "defaults": {
@@ -392,12 +349,12 @@
       "pluginVersion": "10.4.3",
       "targets": [
         {
-          "expr": "topk(10, sum(rate(kube_pod_container_status_restarts_total{cluster=~\"$cluster\", namespace=~\"$namespace\", pod=~\"$pod\"}[5m])) by (namespace,pod))",
-          "refId": "A",
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          }
+            "uid": "PROMETHEUS_DS"
+          },
+          "expr": "topk(10, sum(rate(kube_pod_container_status_restarts_total{cluster=~\"$cluster\", namespace=~\"$namespace\", pod=~\"$pod\"}[5m])) by (namespace,pod))",
+          "refId": "A"
         }
       ],
       "title": "Top Pods por Restarts (proxy p/ erros)",
@@ -406,7 +363,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PROMETHEUS_DS"
       },
       "fieldConfig": {
         "defaults": {
@@ -456,12 +413,12 @@
       "pluginVersion": "10.4.3",
       "targets": [
         {
-          "expr": "topk(10, sum by (namespace,pod,reason) (kube_pod_container_status_waiting_reason{cluster=~\"$cluster\", namespace=~\"$namespace\", pod=~\"$pod\", reason=~\"CrashLoopBackOff|ImagePullBackOff|ErrImagePull|CreateContainerConfigError\"}))",
-          "refId": "A",
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          }
+            "uid": "PROMETHEUS_DS"
+          },
+          "expr": "topk(10, sum by (namespace,pod,reason) (kube_pod_container_status_waiting_reason{cluster=~\"$cluster\", namespace=~\"$namespace\", pod=~\"$pod\", reason=~\"CrashLoopBackOff|ImagePullBackOff|ErrImagePull|CreateContainerConfigError\"}))",
+          "refId": "A"
         }
       ],
       "title": "Top Pods em CrashLoop/Waiting (15m)",
@@ -481,7 +438,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PROMETHEUS_DS"
       },
       "fieldConfig": {
         "defaults": {
@@ -559,12 +516,12 @@
       },
       "targets": [
         {
-          "expr": "100 * (1 - avg_over_time(kube_pod_container_status_ready{cluster=~\"$cluster\", namespace=~\"$namespace\", pod=~\"$pod\"}[5m]))",
-          "refId": "A",
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          }
+            "uid": "PROMETHEUS_DS"
+          },
+          "expr": "100 * (1 - avg_over_time(kube_pod_container_status_ready{cluster=~\"$cluster\", namespace=~\"$namespace\", pod=~\"$pod\"}[5m]))",
+          "refId": "A"
         }
       ],
       "title": "Readiness não pronta (% tempo) por Pod",
@@ -573,7 +530,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PROMETHEUS_DS"
       },
       "fieldConfig": {
         "defaults": {
@@ -650,19 +607,19 @@
       },
       "targets": [
         {
-          "expr": "sum by (namespace,pod) (kube_pod_container_status_last_terminated_reason{cluster=~\"$cluster\", namespace=~\"$namespace\", pod=~\"$pod\", reason=\"OOMKilled\"})",
-          "refId": "A",
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          }
+            "uid": "PROMETHEUS_DS"
+          },
+          "expr": "sum by (namespace,pod) (kube_pod_container_status_last_terminated_reason{cluster=~\"$cluster\", namespace=~\"$namespace\", pod=~\"$pod\", reason=\"OOMKilled\"})",
+          "refId": "A"
         }
       ],
       "title": "OOMKilled por Pod (contagem)",
       "type": "timeseries"
     }
   ],
-  "refresh": "10s",
+  "refresh": "auto",
   "schemaVersion": 39,
   "tags": [
     "erros",
@@ -671,10 +628,14 @@
   "templating": {
     "list": [
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "PROMETHEUS_DS"
         },
         "definition": "label_values(kube_node_labels, cluster)",
         "hide": 0,
@@ -693,10 +654,14 @@
         "type": "query"
       },
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "PROMETHEUS_DS"
         },
         "definition": "label_values(kube_pod_info{cluster=~\"$cluster\"}, namespace)",
         "hide": 0,
@@ -715,10 +680,14 @@
         "type": "query"
       },
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "PROMETHEUS_DS"
         },
         "definition": "label_values(kube_pod_info{cluster=~\"$cluster\", namespace=~\"$namespace\"}, pod)",
         "hide": 0,
@@ -737,10 +706,14 @@
         "type": "query"
       },
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "PROMETHEUS_DS"
         },
         "definition": "label_values(kube_pod_container_info{cluster=~\"$cluster\", namespace=~\"$namespace\", pod=~\"$pod\"}, container)",
         "hide": 0,
@@ -766,7 +739,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Erros - Kubernetes (Observação)",
+  "title": "Erros - Kubernetes",
   "uid": "errors-k8s",
   "version": 1,
   "weekStart": ""
