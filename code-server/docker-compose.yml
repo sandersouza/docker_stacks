@@ -4,24 +4,27 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
+        USER_NAME: ${HOST_USER:-coder}
         USER_UID: ${HOST_UID:-1000}
         USER_GID: ${HOST_GID:-1000}
     container_name: code-server
+    user: "${HOST_UID:-1000}:${HOST_GID:-1000}"
     env_file:
       - .env
     environment:
       TZ: ${TZ:-America/Sao_Paulo}
+      USER: ${HOST_USER:-coder}
     ports:
       - "8080:8080"
       - "1455:1455"
     volumes:
-      - ../../:/home/coder/workspace
-      - ./config:/home/coder/.config/code-server
-      - ./data:/home/coder/.local/share/code-server
-      - ./dotfiles/.zshrc:/home/coder/.zshrc:ro
-      - ./dotfiles/.zprofile:/home/coder/.zprofile:ro
-      - ./dotfiles/.p10k.zsh:/home/coder/.p10k.zsh:ro
-      - ./dotfiles/.oh-my-zsh:/home/coder/.oh-my-zsh:ro
+      - ../../:/home/${HOST_USER}/workspace
+      - ./config:/home/${HOST_USER}/.config/code-server
+      - ./data:/home/${HOST_USER}/.local/share/code-server
+      - ./dotfiles/.zshrc:/home/${HOST_USER}/.zshrc:ro
+      - ./dotfiles/.zprofile:/home/${HOST_USER}/.zprofile:ro
+      - ./dotfiles/.p10k.zsh:/home/${HOST_USER}/.p10k.zsh:ro
+      - ./dotfiles/.oh-my-zsh:/home/${HOST_USER}/.oh-my-zsh:ro
     restart: unless-stopped
     stop_grace_period: 1m
 

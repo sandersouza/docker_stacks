@@ -1,52 +1,51 @@
-# Ignorar arquivos comuns do macOS
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# Icone de arquivos na pasta do macOS
-Icon?
-
-# Arquivos de cache do macOS
-._*
-
-# Arquivos de cache do Finder
-.Spotlight-V100
-.Trashes
-.VolumeIcon.icns
-.fseventsd
-
-# Ignorar ambientes virtuais Python
+# Ambiente virtual
+.venv/
 venv/
+ENV/
 env/
 
-# Ignorar pastas específicas
-database/redisinsight/data/*
-database/mongodb/mongo/config/*
-database/mongodb/mongo/data/*
-database/mysql/db/data/*
-
-# Ignorar arquivos de log
-*.log
-
-# Ignorar arquivos de backup
-*.bak
-*.swp
-*.tmp
-
-# Ignorar arquivos gerados pelo editor
-*.idea/
-*.vscode/
-*.sublime-*
-
-# Ignorar binários ou artefatos compilados
-*.pyc
+# Pycache e arquivos temporários
+__pycache__/
+*.py[cod]
 *.pyo
 *.pyd
-__pycache__/
-
-# Ignorar arquivos temporários ou de build
-*.tmp
-*.cache
-*.coverage
 dist/
 build/
+*.egg-info/
+*.spec
+
+# Arquivos de log
+*.log
+
+# IDEs
+.vscode/
+.idea/
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Testes e cobertura
+.coverage
+.scannerwork
+reports/
+htmlcov/
+.tox/
+.nox/
+
+# Docker (caso use)
+*.pid
+*.db
+*.sqlite3
+data/
+
+# Outros
+.pytest_cache
+.env
+*.pem
+*.key
+*.crt
+
+# SonarQube Exclusions
+sonar-project.properties
+sonar-cacerts.jks
